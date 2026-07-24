@@ -75,14 +75,21 @@ namespace SmartExamSystem.Controllers
 
             if (user != null)
             {
-                _emailService.SendEmail(
-                    user.Email,
-                    "Exam Result",
-                    $"Hello {user.Name},\n\n" +
-                    $"Your Score: {score}\n" +
-                    $"Status: {status}\n" +
-                    $"Percentage: {percentage:F2}%"
-                );
+                try
+                {
+                    _emailService.SendEmail(
+                        user.Email,
+                        "Exam Result",
+                        $"Hello {user.Name},\n\n" +
+                        $"Your Score: {score}\n" +
+                        $"Status: {status}\n" +
+                        $"Percentage: {percentage:F2}%"
+                    );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
             return Ok(new

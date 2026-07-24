@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OfficeOpenXml;
 using SmartExamSystem.Data;
 using SmartExamSystem.Services;
 using System.Security.Claims;
@@ -93,6 +94,7 @@ builder.Services.AddAuthentication(
 });
 
 builder.Services.AddAuthorization();
+ExcelPackage.License.SetNonCommercialPersonal("Soumya");
 
 var app = builder.Build();
 

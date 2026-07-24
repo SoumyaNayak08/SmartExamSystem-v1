@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartExamSystem.Data;
 using SmartExamSystem.Models;
+using OfficeOpenXml;
+using Microsoft.AspNetCore.Http;
 
 namespace SmartExamSystem.Controllers
 {
@@ -54,6 +56,9 @@ namespace SmartExamSystem.Controllers
         {
             var questions = _context.Questions
                 .Where(q => q.ExamId == examId)
+                .ToList();
+
+            questions = questions
                 .OrderBy(q => Guid.NewGuid())
                 .ToList();
 
@@ -97,6 +102,70 @@ namespace SmartExamSystem.Controllers
             _context.SaveChanges();
 
             return Ok("Question Deleted Successfully");
+        }
+
+        [HttpPost("import")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult ImportExcel(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("Please upload an Excel file.");
+
+            using var stream = new MemoryStream();
+
+            file.CopyTo(stream);
+
+            using var package = new ExcelPackage(stream);
+
+            var worksheet = package.Workbook.Worksheets[0];
+
+            int rowCount = worksheet.Dimension.Rows;
+
+            for (int row = 2; row <= rowCount; row++)
+            {
+                string examTitle = worksheet.Cells[row, 1].Text;
+                string questionText = worksheet.Cells[row, 2].Text;
+                string optionA = worksheet.Cells[row, 3].Text;
+                string optionB = worksheet.Cells[row, 4].Text;
+                string optionC = worksheet.Cells[row, 5].Text;
+                string optionD = worksheet.Cells[row, 6].Text;
+                string correctAnswer = worksheet.Cells[row, 7].Text;
+
+                // Find existing exam
+                var exam = _context.Exams
+                    .FirstOrDefault(e => e.Title == examTitle);
+
+                // Create exam if it doesn't exist
+                if (exam == null)
+                {
+                    exam = new Exam
+                    {
+                        Title = examTitle,
+                        Description = examTitle + " Exam",
+                        Duration = 30
+                    };
+
+                    _context.Exams.Add(exam);
+                    _context.SaveChanges();
+                }
+
+                var question = new Question
+                {
+                    QuestionText = questionText,
+                    OptionA = optionA,
+                    OptionB = optionB,
+                    OptionC = optionC,
+                    OptionD = optionD,
+                    CorrectAnswer = correctAnswer,
+                    ExamId = exam.Id
+                };
+
+                _context.Questions.Add(question);
+            }
+
+            _context.SaveChanges();
+
+            return Ok("Questions Imported Successfully");
         }
     }
 }

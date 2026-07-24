@@ -4,48 +4,33 @@
 
 async function register() {
 
-    const name =
-        document.getElementById("name").value;
-
-    const email =
-        document.getElementById("regEmail").value;
-
-    const password =
-        document.getElementById("regPassword").value;
-
-    const role =
-        document.getElementById("role").value;
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     try {
 
-        const response =
-            await fetch(
-                `${API_URL}/Auth/register`,
-                {
-                    method: "POST",
+        const response = await fetch(
+            `${API_URL}/Auth/register`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password,
+                    role: "Student"
+                })
+            });
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body: JSON.stringify({
-                        name,
-                        email,
-                        password,
-                        role
-                    })
-                });
-
-        const result =
-            await response.text();
+        const result = await response.text();
 
         if (response.ok) {
 
             alert("Registration Successful");
-
-            window.location.href =
-                "login.html";
+            window.location.href = "login.html";
         }
         else {
 
@@ -55,7 +40,6 @@ async function register() {
     catch (error) {
 
         console.error(error);
-
         alert("Registration Failed");
     }
 }
@@ -63,7 +47,6 @@ async function register() {
 // ================= LOGIN =================
 
 async function login() {
-
     const email =
         document.getElementById("email").value;
 
@@ -115,6 +98,8 @@ async function login() {
             payload[
             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
             ];
+        alert("Role = " + role);
+
 
         const userId =
             payload["UserId"];
@@ -129,15 +114,19 @@ async function login() {
             userId
         );
 
+        console.log("Role:", role);
+
         if (role === "Admin") {
 
-            window.location.href =
-                "admin.html";
-        }
-        else {
+            console.log("Redirecting to admin-dashboard.html");
 
-            window.location.href =
-                "dashboard.html";
+            window.location.href = "admin-dashboard.html";
+
+        } else {
+
+            console.log("Redirecting to dashboard.html");
+
+            window.location.href = "dashboard.html";
         }
     }
     catch (error) {
@@ -181,9 +170,7 @@ async function loadExams() {
     try {
 
         const response =
-            await fetch(
-                `${API_URL}/Exam`
-            );
+            await fetch(`${API_URL}/Exam`);
 
         const exams =
             await response.json();
@@ -193,14 +180,14 @@ async function loadExams() {
         exams.forEach(exam => {
 
             html += `
-            <div class="card shadow p-3 mb-3">
+            <div class="exam-card">
 
-                <h3>${exam.title}</h3>
+                <h3>📘 ${exam.title}</h3>
 
                 <p>${exam.description}</p>
 
                 <p>
-                    Duration:
+                    ⏳ Duration:
                     ${exam.duration} Minutes
                 </p>
 
@@ -216,13 +203,20 @@ async function loadExams() {
             `;
         });
 
-        document.getElementById(
-            "examList"
-        ).innerHTML = html;
+        const examList =
+            document.getElementById("examList");
+
+        if (examList) {
+
+            examList.innerHTML = html;
+        }
+
     }
     catch (error) {
 
         console.error(error);
+
+        alert("Failed To Load Exams");
     }
 }
 
@@ -244,9 +238,7 @@ function startExam(examId) {
 async function loadQuestions() {
 
     const examId =
-        localStorage.getItem(
-            "examId"
-        );
+        localStorage.getItem("examId");
 
     try {
 
@@ -263,57 +255,48 @@ async function loadQuestions() {
         questions.forEach(q => {
 
             html += `
-            <div class="card shadow p-3 mb-3">
 
-                <h5>
-                    ${q.questionText}
-                </h5>
+            <div class="question-box">
+
+                <h5>Question ${q.id}</h5>
+
+                <h4>${q.questionText}</h4>
 
                 <label>
-                    <input
-                        type="radio"
-                        name="${q.id}"
-                        value="${q.optionA}">
+                    <input type="radio"
+                           name="${q.id}"
+                           value="${q.optionA}">
                     ${q.optionA}
                 </label>
 
-                <br>
-
                 <label>
-                    <input
-                        type="radio"
-                        name="${q.id}"
-                        value="${q.optionB}">
+                    <input type="radio"
+                           name="${q.id}"
+                           value="${q.optionB}">
                     ${q.optionB}
                 </label>
 
-                <br>
-
                 <label>
-                    <input
-                        type="radio"
-                        name="${q.id}"
-                        value="${q.optionC}">
+                    <input type="radio"
+                           name="${q.id}"
+                           value="${q.optionC}">
                     ${q.optionC}
                 </label>
 
-                <br>
-
                 <label>
-                    <input
-                        type="radio"
-                        name="${q.id}"
-                        value="${q.optionD}">
+                    <input type="radio"
+                           name="${q.id}"
+                           value="${q.optionD}">
                     ${q.optionD}
                 </label>
 
             </div>
+
             `;
         });
 
-        document.getElementById(
-            "questions"
-        ).innerHTML = html;
+        document.getElementById("questions")
+            .innerHTML = html;
     }
     catch (error) {
 
@@ -421,30 +404,39 @@ async function submitExam() {
 
 function loadResult() {
 
-    document.getElementById(
-        "score"
-    ).innerHTML = `
+    const score =
+        localStorage.getItem("score");
 
-        <div class="card shadow p-4 text-center">
+    const percentage =
+        localStorage.getItem("percentage");
 
-            <h2>
-                Score:
-                ${localStorage.getItem("score")}
-            </h2>
+    const status =
+        localStorage.getItem("status");
 
-            <h3>
-                Percentage:
-                ${localStorage.getItem("percentage")}%
-            </h3>
+    const badgeClass =
+        status === "Pass"
+            ? "pass"
+            : "fail";
 
-            <h3>
-                Status:
-                ${localStorage.getItem("status")}
-            </h3>
+    document
+        .getElementById("resultContainer")
+        .innerHTML = `
 
-        </div>
-    `;
+        <h2>
+            Score: ${score}
+        </h2>
+
+        <h3 class="mt-3">
+            Percentage: ${percentage}%
+        </h3>
+
+        <h2 class="${badgeClass} mt-4">
+            ${status}
+        </h2>
+
+        `;
 }
+
 
 // ================= TIMER =================
 
@@ -452,61 +444,102 @@ let timerInterval;
 
 async function startTimer() {
 
-    const examId =
-        localStorage.getItem(
-            "examId"
-        );
+    try {
 
-    const response =
-        await fetch(
-            `${API_URL}/Exam/${examId}`
-        );
+        const examId =
+            localStorage.getItem("examId");
 
-    const exam =
-        await response.json();
+        const response =
+            await fetch(
+                `${API_URL}/Exam/${examId}`
+            );
 
-    let minutes =
-        exam.duration;
+        const exam =
+            await response.json();
 
-    let seconds = 0;
+        let minutes =
+            exam.duration;
 
-    timerInterval =
+        let seconds = 0;
+
+        timerInterval =
+            setInterval(() => {
+
+                if (
+                    minutes === 0 &&
+                    seconds === 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    alert(
+                        "Time Up! Exam Submitted."
+                    );
+
+                    submitExam();
+
+                    return;
+                }
+
+                if (seconds === 0) {
+
+                    minutes--;
+                    seconds = 59;
+                }
+                else {
+
+                    seconds--;
+                }
+
+                const timerElement =
+                    document.getElementById(
+                        "timer"
+                    );
+
+                if (timerElement) {
+
+                    timerElement.innerText =
+                        `${minutes}:${seconds
+                            .toString()
+                            .padStart(2, '0')}`;
+                }
+
+            }, 1000);
+    }
+    catch (error) {
+
+        console.error(error);
+    }
+}
+
+function animateCounter(id, target) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element)
+        return;
+
+    let count = 0;
+
+    const increment =
+        Math.ceil(target / 50);
+
+    const interval =
         setInterval(() => {
 
-            if (
-                minutes === 0 &&
-                seconds === 0
-            ) {
+            count += increment;
 
-                clearInterval(
-                    timerInterval
-                );
+            if (count >= target) {
 
-                alert(
-                    "Time Up!"
-                );
+                count = target;
 
-                submitExam();
-
-                return;
+                clearInterval(interval);
             }
 
-            if (seconds === 0) {
+            element.innerText = count;
 
-                minutes--;
-                seconds = 59;
-            }
-            else {
-
-                seconds--;
-            }
-
-            document
-                .getElementById("timer")
-                .innerText =
-                `${minutes}:${seconds
-                    .toString()
-                    .padStart(2, '0')}`;
-
-        }, 1000);
+        }, 20);
 }

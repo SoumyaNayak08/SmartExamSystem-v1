@@ -41,9 +41,8 @@ namespace SmartExamSystem.Controllers
                 Name = model.Name,
                 Email = model.Email,
                 Password = model.Password,
-                Role = model.Role
+                Role = "Student"
             };
-
             _context.Users.Add(user);
 
             _context.SaveChanges();

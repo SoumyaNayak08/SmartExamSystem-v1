@@ -1,55 +1,347 @@
-﻿body {
-    background: #f5f7fb;
-    font-family: 'Segoe UI',sans-serif;
+﻿/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
 }
 
-.hero {
-    background: linear-gradient(135deg,#2563eb,#1e40af);
+body {
+    background: linear-gradient(135deg,#0f172a,#1e293b);
     color: white;
-    padding: 100px 20px;
-    text-align: center;
+    min-height: 100vh;
 }
 
-    .hero h1 {
-        font-size: 60px;
-        font-weight: bold;
-    }
+/* Navbar */
 
-.card-custom {
-    border: none;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,.1);
+.navbar {
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.1);
 }
 
 .navbar-brand {
-    font-weight: bold;
+    font-size: 24px;
+    font-weight: 700;
+    color: white !important;
 }
 
-.exam-card {
-    border-radius: 15px;
+/* Hero */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     padding: 20px;
-    background: white;
-    box-shadow: 0 5px 15px rgba(0,0,0,.1);
+}
+
+    .hero h1 {
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: #cbd5e1;
+        margin-bottom: 30px;
+    }
+
+/* Buttons */
+
+.btn-primary {
+    background: linear-gradient(45deg,#3b82f6,#8b5cf6);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+}
+
+.btn-success {
+    background: linear-gradient(45deg,#22c55e,#16a34a);
+    border: none;
+    border-radius: 12px;
+}
+
+.btn-danger {
+    border-radius: 12px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    transition: .3s;
+}
+
+/* Glass Cards */
+
+.card-custom {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.3);
+    color: white;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.1);
+    color: white;
+    border-radius: 12px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        background: rgba(255,255,255,.12);
+        color: white;
+        box-shadow: none;
+        border-color: #3b82f6;
+    }
+
+    .form-control::placeholder {
+        color: #cbd5e1;
+    }
+
+/* Dashboard Cards */
+
+.stats-card {
+    background: rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    transition: .3s;
+}
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stats-card h2 {
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .stats-card p {
+        color: #cbd5e1;
+    }
+
+/* Exam Cards */
+
+.exam-card {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: .3s;
+}
+
+    .exam-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .exam-card h3 {
+        margin-bottom: 10px;
+    }
+
+/* Question Box */
+
+.question-box {
+    background: rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 25px;
     margin-bottom: 20px;
 }
 
+    .question-box label {
+        display: block;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+        background: rgba(255,255,255,.05);
+    }
+
+/* Timer */
+
 .timer {
-    font-size: 28px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ef4444;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-size: 22px;
     font-weight: bold;
-    color: red;
+    z-index: 999;
 }
 
+/* Result */
+
 .result-box {
+    background: rgba(255,255,255,.08);
+    padding: 40px;
+    border-radius: 20px;
     text-align: center;
-    padding: 50px;
 }
 
 .pass {
-    color: green;
-    font-size: 30px;
+    color: #22c55e;
+    font-size: 32px;
+    font-weight: bold;
 }
 
 .fail {
-    color: red;
-    font-size: 30px;
+    color: #ef4444;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* Sidebar */
+
+.sidebar {
+    min-height: 100vh;
+    background: #111827;
+    padding: 20px;
+}
+
+    .sidebar a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+        .sidebar a:hover
+        /* Tables */
+        table {
+            color: white !important;
+        }
+
+/* Responsive */
+
+@media(max-width:768px) {
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .timer {
+        font-size: 18px;
+    }
+}
+.vh-100 {
+    min-height: 100vh;
+}
+
+label {
+    margin-bottom: 8px;
+    display: block;
+    color: #e2e8f0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.question-box {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+
+    .question-box h5,
+    .question-box h3 {
+        margin-bottom: 20px;
+    }
+
+    .question-box label {
+        display: block;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.05);
+        cursor: pointer;
+        transition: .3s;
+    }
+
+        .question-box label:hover {
+            background: rgba(59,130,246,.2);
+        }
+
+    .question-box input[type="radio"] {
+        margin-right: 10px;
+    }
+
+.alert-warning {
+    border-radius: 15px;
+}
+.result-box {
+    padding: 50px;
+    text-align: center;
+}
+
+.pass {
+    color: #22c55e;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.fail {
+    color: #ef4444;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+
+.stats-card {
+    transition: all .4s ease;
+}
+
+    .stats-card:hover {
+        transform: translateY(-10px) scale(1.03);
+    }
+
+.exam-card {
+    transition: all .4s ease;
+}
+
+    .exam-card:hover {
+        transform: translateY(-8px);
+    }
+
+.btn {
+    transition: all .3s ease;
+}
+
+    .btn:hover {
+        transform: translateY(-2px);
+    }
+
+.card-custom {
+    animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
