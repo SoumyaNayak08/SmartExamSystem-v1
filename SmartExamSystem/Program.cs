@@ -94,7 +94,7 @@ builder.Services.AddAuthentication(
 });
 
 builder.Services.AddAuthorization();
-ExcelPackage.License.SetNonCommercialPersonal("Soumya");
+//ExcelPackage.License.SetNonCommercialPersonal("Soumya");
 
 builder.Services.AddCors(options =>
 {
