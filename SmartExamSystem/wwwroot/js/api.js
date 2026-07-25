@@ -1,5 +1,4 @@
-﻿const API_URL = "https://smartexamsystem-v1-1.onrender.com/api";
-
+﻿const API_URL = "https://localhost:7121/api";
 // ================= REGISTER =================
 
 async function register() {

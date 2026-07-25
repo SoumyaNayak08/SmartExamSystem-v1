@@ -60,47 +60,21 @@ namespace SmartExamSystem.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginDto model)
         {
-            Console.WriteLine($"EMAIL=[{model.Email}]");
-            Console.WriteLine($"PASSWORD=[{model.Password}]");
-
-            var allUsers = _context.Users.ToList();
-
-            Console.WriteLine("===== USERS IN DATABASE =====");
-
-            foreach (var u in allUsers)
-            {
-                Console.WriteLine(
-                    $"DB USER => {u.Id} | {u.Email} | {u.Password} | {u.Role}");
-            }
-
-            Console.WriteLine("===== END USERS =====");
-
-            foreach (var u in allUsers)
-            {
-                Console.WriteLine(
-                    $"DB USER => {u.Email} | {u.Password} | {u.Role}");
-            }
-
-            var userByEmail = _context.Users
-    .FirstOrDefault(x => x.Email == model.Email);
-
-            if (userByEmail != null)
-            {
-                Console.WriteLine($"FOUND EMAIL: [{userByEmail.Email}]");
-                Console.WriteLine($"DB PASSWORD: [{userByEmail.Password}]");
-                Console.WriteLine($"DB ROLE: [{userByEmail.Role}]");
-            }
-
             var user = _context.Users.FirstOrDefault(
                 x => x.Email == model.Email &&
                      x.Password == model.Password);
 
             if (user == null)
+            {
                 return Unauthorized("Invalid Credential");
+            }
 
             var token = GenerateToken(user);
 
-            return Ok(new { token });
+            return Ok(new
+            {
+                token = token
+            });
         }
 
         private string GenerateToken(User user)

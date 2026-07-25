@@ -1,5 +1,4 @@
-﻿const API_URL = "https://smartexamsystem-v1-1.onrender.com/api";
-
+﻿const API_URL = "https://localhost:7121/api";
 // ================= ADMIN CHECK =================
 
 window.onload = function () {
@@ -189,7 +188,6 @@ function logout() {
 
 async function uploadExcel() {
 
-    alert("Upload button clicked");
 
     const token = localStorage.getItem("token");
 
