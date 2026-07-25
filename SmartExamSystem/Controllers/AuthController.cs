@@ -65,10 +65,30 @@ namespace SmartExamSystem.Controllers
 
             var allUsers = _context.Users.ToList();
 
+            Console.WriteLine("===== USERS IN DATABASE =====");
+
+            foreach (var u in allUsers)
+            {
+                Console.WriteLine(
+                    $"DB USER => {u.Id} | {u.Email} | {u.Password} | {u.Role}");
+            }
+
+            Console.WriteLine("===== END USERS =====");
+
             foreach (var u in allUsers)
             {
                 Console.WriteLine(
                     $"DB USER => {u.Email} | {u.Password} | {u.Role}");
+            }
+
+            var userByEmail = _context.Users
+    .FirstOrDefault(x => x.Email == model.Email);
+
+            if (userByEmail != null)
+            {
+                Console.WriteLine($"FOUND EMAIL: [{userByEmail.Email}]");
+                Console.WriteLine($"DB PASSWORD: [{userByEmail.Password}]");
+                Console.WriteLine($"DB ROLE: [{userByEmail.Role}]");
             }
 
             var user = _context.Users.FirstOrDefault(
