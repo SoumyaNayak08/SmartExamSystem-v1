@@ -1,4 +1,4 @@
-﻿const API_URL = "https://smartexamsystem-v1-1.onrender.com";
+﻿const API_URL = "https://smartexamsystem-v1-1.onrender.com/api";
 
 // ================= ADMIN CHECK =================
 
