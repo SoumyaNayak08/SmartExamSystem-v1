@@ -8,8 +8,15 @@ using SmartExamSystem.Services;
 using System.Security.Claims;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);
+Environment.SetEnvironmentVariable(
+    "DOTNET_USE_POLLING_FILE_WATCHER",
+    "true");
 
+Environment.SetEnvironmentVariable(
+    "DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE",
+    "false");
+
+var builder = WebApplication.CreateBuilder(args);
 // Services
 builder.Services.AddScoped<EmailService>();
 
@@ -94,6 +101,7 @@ builder.Services.AddAuthentication(
 });
 
 builder.Services.AddAuthorization();
+
 //ExcelPackage.License.SetNonCommercialPersonal("Soumya");
 
 builder.Services.AddCors(options =>
