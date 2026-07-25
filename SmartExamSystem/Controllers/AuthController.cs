@@ -43,7 +43,7 @@ namespace SmartExamSystem.Controllers
                     Name = model.Name,
                     Email = model.Email,
                     Password = model.Password,
-                    Role = "Student"
+                    Role = model.Role
                 };
 
                 _context.Users.Add(user);
@@ -104,12 +104,6 @@ namespace SmartExamSystem.Controllers
 
             return new JwtSecurityTokenHandler()
                 .WriteToken(token);
-        }
-
-        [HttpGet("users")]
-        public IActionResult Users()
-        {
-            return Ok(_context.Users.ToList());
         }
     }
 }
