@@ -29,38 +29,32 @@ namespace SmartExamSystem.Controllers
         [HttpPost("register")]
         public IActionResult Register(RegisterDto model)
         {
-            var userExists = _context.Users.Any(x=>x.Email == model.Email);
-
-            if (userExists)
-            {
-                return BadRequest("User already exists");
-            }
-
-            User user = new User
-            {
-                Name = model.Name,
-                Email = model.Email,
-                Password = model.Password,
-                Role = "Student"
-            };
-            _context.Users.Add(user);
-
-            _context.SaveChanges();
-
             try
             {
-                _emailService.SendEmail(
-                    user.Email,
-                    "Welcome to Smart Exam System",
-                    $"Hello {user.Name}, your account has been created successfully."
-                );
+                var userExists = _context.Users.Any(x => x.Email == model.Email);
+
+                if (userExists)
+                {
+                    return BadRequest("User already exists");
+                }
+
+                User user = new User
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Role = "Student"
+                };
+
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                return Ok("Registered Successfully");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
-
-            return Ok("Registered Succesfully");
         }
 
         [HttpPost("login")]

@@ -27,15 +27,11 @@ async function register() {
 
         const result = await response.text();
 
-        if (response.ok) {
+        console.log("Status:", response.status);
+        console.log("Response:", result);
 
-            alert("Registration Successful");
-            window.location.href = "login.html";
-        }
-        else {
+        alert(result);
 
-            alert(result);
-        }
     }
     catch (error) {
 
