@@ -105,5 +105,11 @@ namespace SmartExamSystem.Controllers
             return new JwtSecurityTokenHandler()
                 .WriteToken(token);
         }
+
+        [HttpGet("users")]
+        public IActionResult Users()
+        {
+            return Ok(_context.Users.ToList());
+        }
     }
 }
