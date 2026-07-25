@@ -60,26 +60,15 @@ namespace SmartExamSystem.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginDto model)
         {
-            Console.WriteLine($"Email: {model.Email}");
-            Console.WriteLine($"Password: {model.Password}");
-
-            var allUsers = _context.Users.ToList();
-
-            Console.WriteLine($"User Count: {allUsers.Count}");
-
-            foreach (var u in allUsers)
-            {
-                Console.WriteLine($"{u.Email} | {u.Password}");
-            }
+            Console.WriteLine($"EMAIL=[{model.Email}]");
+            Console.WriteLine($"PASSWORD=[{model.Password}]");
 
             var user = _context.Users.FirstOrDefault(
                 x => x.Email == model.Email &&
                      x.Password == model.Password);
 
             if (user == null)
-            {
                 return Unauthorized("Invalid Credential");
-            }
 
             var token = GenerateToken(user);
 

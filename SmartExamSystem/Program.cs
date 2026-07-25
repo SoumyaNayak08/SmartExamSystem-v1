@@ -17,6 +17,8 @@ Environment.SetEnvironmentVariable(
     "false");
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 // Services
 builder.Services.AddScoped<EmailService>();
 
@@ -102,7 +104,7 @@ builder.Services.AddAuthentication(
 
 builder.Services.AddAuthorization();
 
-//ExcelPackage.License.SetNonCommercialPersonal("Soumya");
+ExcelPackage.License.SetNonCommercialPersonal("Soumya");
 
 builder.Services.AddCors(options =>
 {
@@ -115,6 +117,11 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
+if (!builder.Environment.IsDevelopment())
+{
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 
 var app = builder.Build();
 

@@ -69,9 +69,9 @@ async function login() {
                 });
 
         if (!response.ok) {
-
+            console.log("Status:", response.status);
+            console.log(await response.text());
             alert("Invalid Credentials");
-
             return;
         }
 
