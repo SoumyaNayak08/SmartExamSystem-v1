@@ -5,54 +5,32 @@
 
 async function loadResults() {
 
-    try {
+    const token = localStorage.getItem("token");
 
-        const token =
-            localStorage.getItem("token");
-
-        const response =
-            await fetch(`${API_URL}/Result/all`, {
-                headers: {
-                    "Authorization":
-                        `Bearer ${token}`
-                }
-            });
-
-        if (!response.ok) {
-
-            alert("Failed to load results");
-
-            return;
+    const response = await fetch(`${API_URL}/Result/all`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
         }
+    });
 
-        const results =
-            await response.json();
+    const results = await response.json();
 
-        const table =
-            document.getElementById("resultTable");
+    const table = document.getElementById("resultsTable");
 
-        table.innerHTML = "";
+    table.innerHTML = "";
 
-        results.forEach(r => {
+    results.forEach(r => {
 
-            table.innerHTML += `
-            <tr>
-                <td>${r.id}</td>
-                <td>${r.userId}</td>
-                <td>${r.examId}</td>
-                <td>${r.score}</td>
-                <td>${r.status}</td>
-                <td>${r.submittedAt}</td>
-            </tr>`;
-        });
-
-    }
-    catch (err) {
-
-        console.error(err);
-
-        alert("Error loading results");
-    }
+        table.innerHTML += `
+        <tr>
+            <td>${r.studentName}</td>
+            <td>${r.studentEmail}</td>
+            <td>${r.examTitle}</td>
+            <td>${r.score}</td>
+            <td>${r.status}</td>
+            <td>${new Date(r.submittedAt).toLocaleString()}</td>
+        </tr>`;
+    });
 }
 
 loadResults();

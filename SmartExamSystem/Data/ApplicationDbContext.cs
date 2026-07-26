@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartExamSystem.Models;
-using System.Collections.Generic;
 
 namespace SmartExamSystem.Data
 {
@@ -19,5 +18,20 @@ namespace SmartExamSystem.Data
         public DbSet<Question> Questions { get; set; }
 
         public DbSet<Result> Results { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Result>()
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId);
+
+            modelBuilder.Entity<Result>()
+                .HasOne(r => r.Exam)
+                .WithMany()
+                .HasForeignKey(r => r.ExamId);
+        }
     }
 }

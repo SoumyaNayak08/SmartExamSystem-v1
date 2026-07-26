@@ -1,24 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SmartExamSystem.Models;
+using System.ComponentModel.DataAnnotations;
 
-namespace SmartExamSystem.Models
+public class Result
 {
-    public class Result
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        public int UserId { get; set; }
+    public int UserId { get; set; }
 
-        public User? User { get; set; }
+    public User? User { get; set; }
 
-        public int ExamId { get; set; }
+    public int ExamId { get; set; }
 
-        public int Score { get; set; }
+    public Exam? Exam { get; set; }
 
-        public double Percentage => (double)Score / 10 * 100;
+    public int Score { get; set; }
 
-        public string Status {  get; set; }
+    public double Percentage => (double)Score / 10 * 100;
 
-        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
-    }
+    public string Status { get; set; }
+
+    public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 }

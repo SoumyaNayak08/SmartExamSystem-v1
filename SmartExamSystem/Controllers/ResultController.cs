@@ -131,7 +131,16 @@ namespace SmartExamSystem.Controllers
         public IActionResult GetAllResults()
         {
             var results = _context.Results
-                .OrderByDescending(x => x.SubmittedAt)
+                .Select(r => new
+                {
+                    r.Id,
+                    StudentName = r.User.Name,
+                    StudentEmail = r.User.Email,
+                    ExamTitle = r.Exam.Title,
+                    r.Score,
+                    r.Status,
+                    r.SubmittedAt
+                })
                 .ToList();
 
             return Ok(results);
