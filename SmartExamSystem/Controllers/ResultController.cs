@@ -9,7 +9,7 @@ namespace SmartExamSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Student")]
+    [Authorize]
     public class ResultController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -55,7 +55,7 @@ namespace SmartExamSystem.Controllers
                 ExamId = model.ExamId,
                 Score = score,
                 Status = status,
-                SubmittedAt = DateTime.Now
+                SubmittedAt = DateTime.UtcNow
             };
             _context.Results.Add(result);
             try
@@ -123,6 +123,16 @@ namespace SmartExamSystem.Controllers
                                       .ToList();
 
             return Ok(leaderboard);
+        }
+
+        [HttpGet]
+        public IActionResult GetAllResults()
+        {
+            var results = _context.Results
+                                  .OrderByDescending(r => r.SubmittedAt)
+                                  .ToList();
+
+            return Ok(results);
         }
     }
 }

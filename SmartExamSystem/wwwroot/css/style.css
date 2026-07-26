@@ -79,12 +79,11 @@ body {
 /* Glass Cards */
 
 .card-custom {
-    background: rgba(255,255,255,.08);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255,255,255,.1);
+    background: #1e293b;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.3);
-    color: white;
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
 }
 
 /* Inputs */
@@ -112,24 +111,28 @@ body {
 /* Dashboard Cards */
 
 .stats-card {
-    background: rgba(255,255,255,.08);
+    background: linear-gradient(135deg,#1e293b,#334155);
     border-radius: 20px;
-    padding: 25px;
+    padding: 30px;
     text-align: center;
-    transition: .3s;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,.25);
+    transition: all .3s ease;
 }
 
     .stats-card:hover {
-        transform: translateY(-5px);
+        transform: translateY(-8px);
     }
 
     .stats-card h2 {
-        font-size: 32px;
+        font-size: 40px;
         font-weight: 700;
+        margin-bottom: 10px;
     }
 
     .stats-card p {
         color: #cbd5e1;
+        margin: 0;
     }
 
 /* Exam Cards */
@@ -206,24 +209,32 @@ body {
 /* Sidebar */
 
 .sidebar {
+    background: #0f172a;
     min-height: 100vh;
-    background: #111827;
-    padding: 20px;
+    padding: 25px;
+    border-right: 1px solid rgba(255,255,255,.08);
 }
+
+    .sidebar h3 {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 30px;
+    }
 
     .sidebar a {
         display: block;
-        color: white;
-        text-decoration: none;
-        padding: 12px;
+        color: #cbd5e1;
+        padding: 14px 16px;
         margin-bottom: 10px;
-        border-radius: 10px;
+        border-radius: 12px;
+        transition: all .3s ease;
+        font-weight: 500;
     }
 
-        .sidebar a:hover
-        /* Tables */
-        table {
-            color: white !important;
+        .sidebar a:hover {
+            background: #1e293b;
+            color: white;
+            transform: translateX(5px);
         }
 
 /* Responsive */
@@ -345,3 +356,14 @@ a {
         transform: translateY(0);
     }
 }
+.table {
+    color: white;
+}
+
+    .table thead {
+        background: #334155;
+    }
+
+    .table tbody tr:hover {
+        background: rgba(255,255,255,.05);
+    }

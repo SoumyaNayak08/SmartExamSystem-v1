@@ -19,6 +19,6 @@ namespace SmartExamSystem.Models
 
         public string Status {  get; set; }
 
-        public DateTime SubmittedAt { get; set; } = DateTime.Now;
+        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
     }
 }

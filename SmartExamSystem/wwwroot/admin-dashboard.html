@@ -14,40 +14,6 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <style>
-
-        .hidden-section {
-            display: none;
-        }
-
-        .admin-content {
-            padding: 30px;
-        }
-
-        .sidebar {
-            background: #111827;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-            .sidebar h3 {
-                color: white;
-            }
-
-            .sidebar a {
-                display: block;
-                padding: 12px;
-                margin-bottom: 10px;
-                text-decoration: none;
-                color: white;
-                border-radius: 10px;
-                transition: .3s;
-            }
-
-                .sidebar a:hover {
-                    background: #1f2937;
-                }
-    </style>
 
 </head>
 
@@ -58,10 +24,9 @@
         <div class="row">
 
             <!-- SIDEBAR -->
-
             <div class="col-md-2 sidebar">
 
-                <h3 class="mb-4">
+                <h3 class="mb-4 text-center">
                     ⚙️ Admin Panel
                 </h3>
 
@@ -81,6 +46,14 @@
                     📂 Import Excel
                 </a>
 
+                <a href="admin-questions.html">
+                    📋 View Questions
+                </a>
+
+                <a href="admin-results.html">
+                    📈 View Results
+                </a>
+
                 <a href="#" onclick="logout()">
                     🚪 Logout
                 </a>
@@ -88,50 +61,69 @@
             </div>
 
             <!-- MAIN CONTENT -->
-
             <div class="col-md-10 admin-content">
 
-                <!-- DASHBOARD -->
+                <!-- MAIN CONTENT -->
 
-                <div id="dashboard" class="hidden-section" style="display:block;">
+                <div class="col-md-10 admin-content">
 
-                    <h2 class="mb-4">
-                        📊 Dashboard Overview
-                    </h2>
+                    <!-- DASHBOARD -->
 
-                    <div class="row">
+                    <div id="dashboard" class="hidden-section" style="display:block;">
 
-                        <div class="col-md-4 mb-4">
+                        <h2 class="mb-4">
+                            📊 Dashboard Overview
+                        </h2>
 
-                            <div class="stats-card">
+                        <div class="row">
 
-                                <h2 id="examCount">0</h2>
+                            <div class="col-md-4 mb-4">
 
-                                <p>Total Exams</p>
+                                <div class="stats-card">
+
+                                    <h2 id="examCount">0</h2>
+
+                                    <p>Total Exams</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+
+                                <div class="stats-card">
+
+                                    <h2 id="questionCount">0</h2>
+
+                                    <p>Questions</p>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+
+                                <div class="stats-card">
+
+                                    <h2>🎓</h2>
+
+                                    <p>Students</p>
+
+                                </div>
 
                             </div>
 
                         </div>
 
-                        <div class="col-md-4 mb-4">
+                        <div class="card-custom p-4">
 
-                            <div class="stats-card">
+                            <h3 class="mb-4">
+                                📚 Available Exams
+                            </h3>
 
-                                <h2>∞</h2>
+                            <div id="examList">
 
-                                <p>Questions</p>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4 mb-4">
-
-                            <div class="stats-card">
-
-                                <h2>🎓</h2>
-
-                                <p>Students</p>
+                                <!-- Loaded from API -->
 
                             </div>
 
@@ -139,162 +131,146 @@
 
                     </div>
 
-                    <div class="card-custom p-4">
+                    <!-- CREATE EXAM -->
 
-                        <h3 class="mb-4">
-                            📚 Available Exams
-                        </h3>
+                    <div id="exam" class="hidden-section">
 
-                        <div id="examList">
+                        <div class="card-custom p-4">
 
-                            <!-- Loaded from API -->
+                            <h2 class="mb-4">
+                                📝 Create New Exam
+                            </h2>
+
+                            <input id="title"
+                                   class="form-control mb-3"
+                                   placeholder="Exam Title">
+
+                            <input id="description"
+                                   class="form-control mb-3"
+                                   placeholder="Exam Description">
+
+                            <input id="duration"
+                                   type="number"
+                                   class="form-control mb-3"
+                                   placeholder="Duration In Minutes">
+
+                            <button class="btn btn-primary"
+                                    onclick="createExam()">
+
+                                Create Exam
+
+                            </button>
 
                         </div>
 
                     </div>
 
-                </div>
+                    <!-- ADD QUESTION -->
 
-                <!-- CREATE EXAM -->
+                    <div id="question" class="hidden-section">
 
-                <div id="exam" class="hidden-section">
+                        <div class="card-custom p-4">
 
-                    <div class="card-custom p-4">
+                            <h2 class="mb-4">
+                                ❓ Add Question
+                            </h2>
 
-                        <h2 class="mb-4">
-                            📝 Create New Exam
-                        </h2>
+                            <input id="questionText"
+                                   class="form-control mb-3"
+                                   placeholder="Question Text">
 
-                        <input id="title"
-                               class="form-control mb-3"
-                               placeholder="Exam Title">
+                            <input id="optionA"
+                                   class="form-control mb-3"
+                                   placeholder="Option A">
 
-                        <input id="description"
-                               class="form-control mb-3"
-                               placeholder="Exam Description">
+                            <input id="optionB"
+                                   class="form-control mb-3"
+                                   placeholder="Option B">
 
-                        <input id="duration"
-                               type="number"
-                               class="form-control mb-3"
-                               placeholder="Duration In Minutes">
+                            <input id="optionC"
+                                   class="form-control mb-3"
+                                   placeholder="Option C">
 
-                        <button class="btn btn-primary"
-                                onclick="createExam()">
+                            <input id="optionD"
+                                   class="form-control mb-3"
+                                   placeholder="Option D">
 
-                            Create Exam
+                            <input id="correctAnswer"
+                                   class="form-control mb-3"
+                                   placeholder="Correct Answer">
 
-                        </button>
+                            <input id="examId"
+                                   type="number"
+                                   class="form-control mb-3"
+                                   placeholder="Exam ID">
 
-                    </div>
+                            <button class="btn btn-success"
+                                    onclick="addQuestion()">
 
-                </div>
+                                Add Question
 
-                <!-- ADD QUESTION -->
+                            </button>
 
-                <div id="question" class="hidden-section">
-
-                    <div class="card-custom p-4">
-
-                        <h2 class="mb-4">
-                            ❓ Add Question
-                        </h2>
-
-                        <input id="questionText"
-                               class="form-control mb-3"
-                               placeholder="Question Text">
-
-                        <input id="optionA"
-                               class="form-control mb-3"
-                               placeholder="Option A">
-
-                        <input id="optionB"
-                               class="form-control mb-3"
-                               placeholder="Option B">
-
-                        <input id="optionC"
-                               class="form-control mb-3"
-                               placeholder="Option C">
-
-                        <input id="optionD"
-                               class="form-control mb-3"
-                               placeholder="Option D">
-
-                        <input id="correctAnswer"
-                               class="form-control mb-3"
-                               placeholder="Correct Answer">
-
-                        <input id="examId"
-                               type="number"
-                               class="form-control mb-3"
-                               placeholder="Exam ID">
-
-                        <button class="btn btn-success"
-                                onclick="addQuestion()">
-
-                            Add Question
-
-                        </button>
+                        </div>
 
                     </div>
 
-                </div>
+                    <!-- IMPORT EXCEL -->
 
-                <!-- IMPORT EXCEL -->
+                    <div id="import" class="hidden-section">
 
-                <div id="import" class="hidden-section">
+                        <div class="card-custom p-4">
 
-                    <div class="card-custom p-4">
+                            <h2 class="mb-4">
+                                📂 Import Questions From Excel
+                            </h2>
 
-                        <h2 class="mb-4">
-                            📂 Import Questions From Excel
-                        </h2>
+                            <p class="text-secondary">
+                                Upload an Excel file containing multiple questions.
+                            </p>
 
-                        <p class="text-secondary">
-                            Upload an Excel file containing multiple questions.
-                        </p>
+                            <input type="file"
+                                   id="excelFile"
+                                   accept=".xlsx,.xls"
+                                   class="form-control mb-3">
 
-                        <input type="file"
-                               id="excelFile"
-                               accept=".xlsx,.xls"
-                               class="form-control mb-3">
+                            <button class="btn btn-success"
+                                    onclick="uploadExcel()">
 
-                        <button class="btn btn-success"
-                                onclick="uploadExcel()">
+                                📤 Import Questions
 
-                            📤 Import Questions
+                            </button>
 
-                        </button>
+                            <hr>
 
-                        <hr>
+                            <h5>Excel Format</h5>
 
-                        <h5>Excel Format</h5>
+                            <table class="table table-bordered">
 
-                        <table class="table table-bordered">
+                                <thead>
 
-                            <thead>
+                                    <tr>
+                                        <th>ExamTitle</th>
+                                        <th>QuestionText</th>
+                                        <th>OptionA</th>
+                                        <th>OptionB</th>
+                                        <th>OptionC</th>
+                                        <th>OptionD</th>
+                                        <th>CorrectAnswer</th>
+                                    </tr>
 
-                                <tr>
-                                    <th>ExamTitle</th>
-                                    <th>QuestionText</th>
-                                    <th>OptionA</th>
-                                    <th>OptionB</th>
-                                    <th>OptionC</th>
-                                    <th>OptionD</th>
-                                    <th>CorrectAnswer</th>
-                                </tr>
+                                </thead>
 
-                            </thead>
+                            </table>
 
-                        </table>
+                        </div>
 
                     </div>
-
                 </div>
+
             </div>
 
         </div>
-
-    </div>
 
     <script src="js/admin.js"></script>
 
