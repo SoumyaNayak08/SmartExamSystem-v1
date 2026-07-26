@@ -1,68 +1,70 @@
-# Smart Exam System
+# Smart Online Examination System
 
-A secure Online Examination System built using ASP.NET Core, Web API, Entity Framework Core, SQL Server, HTML, CSS, JavaScript, and Bootstrap.
+## Live Demo
+
+https://smartexamsystem-v1-1.onrender.com
+
+## Overview
+
+Smart Online Examination System is a full-stack web application that enables administrators to create and manage examinations while allowing students to attend online exams and view results securely.
 
 ## Features
 
-* JWT Authentication & Authorization
-* Role-Based Access Control (Admin / Student)
-* Student Registration & Login
-* Admin Dashboard
-* Create Exams
-* Add Questions
-* Start Exam
-* Timer-Based Examination
-* Auto Submission
-* Result Generation
-* Score & Percentage Calculation
+### Admin
 
-## Technologies Used
+* Create and manage exams
+* Add, edit, and delete questions
+* Import questions from Excel
+* View student results
+* Dashboard analytics
+
+### Student
+
+* Registration and Login
+* Attend online exams
+* Real-time exam timer
+* Instant result generation
+* Email result notification
+
+## Security
+
+* JWT Authentication
+* Role-Based Authorization
+* BCrypt Password Hashing
+
+## Tech Stack
 
 ### Backend
 
-* ASP.NET Core 8
-* ASP.NET Web API
+* ASP.NET Core Web API
 * Entity Framework Core
-* SQL Server
-* JWT Authentication
+* PostgreSQL
 
 ### Frontend
 
 * HTML
 * CSS
-* Bootstrap 5
+* Bootstrap
 * JavaScript
 
-## Project Structure
+### Deployment
 
-* Controllers
-* Models
-* DTOs
-* Data
-* Services
-* wwwroot (Frontend)
+* Render
 
-## Screenshots
+## Database Tables
 
-Add screenshots here:
+* Users
+* Exams
+* Questions
+* Results
 
-* Home Page
-* Login Page
-* Register Page
-* Student Dashboard
-* Exam Page
-* Result Page
-* Admin Dashboard
+## Future Enhancements
 
-## How to Run
-
-1. Clone the repository
-2. Configure SQL Server connection string in appsettings.json
-3. Run migrations
-4. Update database
-5. Run the project
+* Certificate Generation
+* PDF Reports
+* Advanced Analytics
+* Anti-Cheating Features
 
 ## Author
 
-Soumyaranjan Nayak
-.NET Developer
+Soumya Ranjan Nayak
