@@ -8,6 +8,7 @@ using SmartExamSystem.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using BCrypt.Net;
 
 namespace SmartExamSystem.Controllers   
 {
@@ -42,7 +43,7 @@ namespace SmartExamSystem.Controllers
                 {
                     Name = model.Name,
                     Email = model.Email,
-                    Password = model.Password,
+                    Password = BCrypt.Net.BCrypt.HashPassword(model.Password),
                     Role = model.Role
                 };
 
@@ -60,13 +61,22 @@ namespace SmartExamSystem.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginDto model)
         {
-            var user = _context.Users.FirstOrDefault(
-                x => x.Email == model.Email &&
-                     x.Password == model.Password);
+            var user = _context.Users
+    .FirstOrDefault(x => x.Email == model.Email);
 
             if (user == null)
             {
-                return Unauthorized("Invalid Credential");
+                return BadRequest("Invalid Email");
+            }
+
+            bool validPassword =
+                BCrypt.Net.BCrypt.Verify(
+                    model.Password,
+                    user.Password);
+
+            if (!validPassword)
+            {
+                return BadRequest("Invalid Password");
             }
 
             var token = GenerateToken(user);
