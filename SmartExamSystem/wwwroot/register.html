@@ -16,6 +16,7 @@
 
 </head>
 
+
 <body>
 
     <div class="container">
@@ -61,16 +62,30 @@
                     </div>
 
                     <div class="mb-3">
-
                         <label>Password</label>
 
-                        <input type="password"
-                               id="password"
-                               class="form-control"
-                               placeholder="Enter Password">
+                        <div style="position:relative;">
 
+                            <input type="password"
+                                   id="password"
+                                   class="form-control"
+                                   placeholder="Enter Password">
+
+                            <i id="eyeIconRegister"
+                               class="bi bi-eye"
+                               onclick="togglePassword('password','eyeIconRegister')"
+                               style="
+                position:absolute;
+                right:15px;
+                top:50%;
+                transform:translateY(-50%);
+                cursor:pointer;
+                color:#555;
+                font-size:20px;">
+                            </i>
+
+                        </div>
                     </div>
-
                     <input type="hidden"
                            id="role"
                            value="Student">

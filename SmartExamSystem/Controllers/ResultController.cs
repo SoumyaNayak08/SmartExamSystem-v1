@@ -125,12 +125,14 @@ namespace SmartExamSystem.Controllers
             return Ok(leaderboard);
         }
 
-        [HttpGet]
+
+        [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllResults()
         {
             var results = _context.Results
-                                  .OrderByDescending(r => r.SubmittedAt)
-                                  .ToList();
+                .OrderByDescending(x => x.SubmittedAt)
+                .ToList();
 
             return Ok(results);
         }

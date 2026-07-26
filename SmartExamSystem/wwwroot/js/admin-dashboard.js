@@ -26,6 +26,6 @@ async function loadResults() {
             <td>${r.examDate}</td>
         </tr>`;
     });
-}
+}   
 
 loadResults();
