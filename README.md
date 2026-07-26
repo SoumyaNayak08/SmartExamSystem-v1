@@ -65,6 +65,25 @@ Smart Online Examination System is a full-stack web application that enables adm
 * Advanced Analytics
 * Anti-Cheating Features
 
+## Screenshots
+
+### Login Page
+
+![Login](Screenshots/login.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](Screenshots/admin-dashboard.png)
+
+### Exam Page
+
+![Exam Page](Screenshots/exam-page.png)
+
+### Results Page
+
+![Results Page](Screenshots/results-page.png)
+
+
 ## Author
 
 Soumya Ranjan Nayak
