@@ -1,4 +1,7 @@
-﻿const API_URL = "https://localhost:7121/api";
+﻿const API_URL =
+    window.location.hostname === "localhost"
+        ? "https://localhost:7121/api"
+        : "https://smartexamsystem-v1-1.onrender.com/api";
 // ================= REGISTER =================
 
 async function register() {
@@ -26,16 +29,19 @@ async function register() {
 
         const result = await response.text();
 
-        console.log("Status:", response.status);
-        console.log("Response:", result);
+        if (!response.ok) {
+            alert(result);
+            return;
+        }
 
         alert(result);
 
+        window.location.href = "login.html";
     }
     catch (error) {
 
         console.error(error);
-        alert("Registration Failed");
+        alert("Cannot connect to API");
     }
 }
 
@@ -52,7 +58,7 @@ async function login() {
 
         const response =
             await fetch(
-                `${API_URL}/Auth/login`,
+                `${API_URL}/Auth/login`, 
                 {
                     method: "POST",
 

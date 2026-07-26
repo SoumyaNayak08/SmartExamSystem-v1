@@ -1,4 +1,7 @@
-﻿const API_URL = "https://localhost:7121/api";
+﻿const API_URL =
+    window.location.hostname === "localhost"
+        ? "https://localhost:7121/api"
+        : "https://smartexamsystem-v1-1.onrender.com/api";
 // ================= ADMIN CHECK =================
 
 window.onload = function () {
