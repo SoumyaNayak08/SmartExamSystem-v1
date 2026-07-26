@@ -99,7 +99,6 @@ async function login() {
             payload[
             "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
             ];
-        alert("Role = " + role);
 
 
         const userId =
